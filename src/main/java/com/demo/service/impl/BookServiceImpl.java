@@ -1,42 +1,47 @@
-package com.demo.service;
+package com.demo.service.impl;
 
-import com.demo.dao.BookmarkDAO;
+import com.demo.dao.BookDAO;
 import com.demo.entity.Book;
+import com.demo.entity.Publisher;
+import com.demo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-public class BookServiceImpl implements BookmarkService<Book> {
+public class BookServiceImpl implements BookService {
     @Autowired
-    @Qualifier("bookDAOImpl")
-    private BookmarkDAO<Book> bookmarkDAO;
+    private BookDAO bookDAO;
 
     @Transactional
     public List<Book> listBookmark() {
-        return bookmarkDAO.listBookmark();
+        return bookDAO.listBookmark();
     }
 
     @Transactional
     public void addOrUpdateBookmark(Book book) {
-        bookmarkDAO.addOrUpdateBookmark(book);
+        bookDAO.addOrUpdateBookmark(book);
     }
 
     @Transactional
     public Book getBookmarkByID(long id) {
-        return bookmarkDAO.getBookmarkByID(id);
+        return bookDAO.getBookmarkByID(id);
     }
 
     @Transactional
     public void deleteBookmark(long id) {
-        bookmarkDAO.deleteBookmark(id);
+        bookDAO.deleteBookmark(id);
     }
 
     @Transactional
     public void deleteBookmark(Book book) {
-        bookmarkDAO.deleteBookmark(book);
+        bookDAO.deleteBookmark(book);
+    }
+
+    @Transactional
+    public Publisher getPublisherByName(String name, long bookID) {
+        return bookDAO.getPublisherByName(name, bookID);
     }
 }

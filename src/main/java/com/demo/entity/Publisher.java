@@ -1,18 +1,33 @@
 package com.demo.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Publisher {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Author_ID")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Publisher_ID")
     private long id;
 
-    @Column(name = "Author_name")
+    @Column(name = "Publisher_name")
     private String name;
+
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    @JoinTable(name = "Book_publisher",
+    joinColumns = @JoinColumn(name = "Book_publisher_publisher_id"),
+    inverseJoinColumns = @JoinColumn(name = "Book_publisher_book_id")
+    )
+    private List<Book> books;
 
     public Publisher() {
         //method called by spring container
+    }
+
+    public Publisher(String name) {
+        this.name = name;
     }
 
     public long getId() {
@@ -29,6 +44,25 @@ public class Publisher {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
+    public void addBooks(List<Book> bookList){
+        if(books == null)
+            books = new ArrayList<>();
+        books.addAll(bookList);
+    }
+
+    public void removeBooks(List<Book> bookList){
+        if(bookList != null)
+            books.removeAll(bookList);
     }
 
     @Override

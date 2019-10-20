@@ -4,6 +4,7 @@ import com.demo.constants.BookGenre;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,10 +25,13 @@ public class Book extends Bookmark {
     @Column(name = "Book_genre")
     private String genre;
 
-    @Transient
-    private List<BookGenre> genreOptions;
-
-//    private List<Publisher> publishers;
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    @JoinTable(name = "Book_publisher",
+            joinColumns = @JoinColumn(name = "Book_publisher_book_id"),
+            inverseJoinColumns = @JoinColumn(name = "Book_publisher_publisher_id")
+    )
+    private List<Publisher> publishers;
 
     @Column(name = "Book_CT")
     private String bookCT;
@@ -36,12 +40,12 @@ public class Book extends Bookmark {
         //method called by spring container
     }
 
-    public Book(String title, String description, String publicationYear, String amazonRating, String genre/*, List<Publisher> publishers*/) {
+    public Book(String title, String description, String publicationYear, String amazonRating, String genre, List<Publisher> publishers) {
         super(title, description);
         this.publicationYear = publicationYear;
         this.amazonRating = amazonRating;
         this.genre = genre;
-        /*this.publishers = publishers;*/
+        this.publishers = publishers;
     }
 
     public String getPublicationYear() {
@@ -70,18 +74,16 @@ public class Book extends Bookmark {
     }
 
     public List<BookGenre> getGenreOptions() {
-        genreOptions = Arrays.asList(BookGenre.values());
-        return genreOptions;
+        return Arrays.asList(BookGenre.values());
     }
 
-//    public List<Publisher> getPublishers() {
-//        return publishers;
-//    }
-//
-//    @Autowired
-//    public void setPublishers(List<Publisher> publishers) {
-//        this.publishers = publishers;
-//    }
+    public List<Publisher> getPublishers() {
+        return publishers;
+    }
+
+    public void setPublishers(List<Publisher> publishers) {
+        this.publishers = publishers;
+    }
 
     public String getBookCT() {
         return bookCT;
@@ -91,16 +93,27 @@ public class Book extends Bookmark {
         this.bookCT = bookCT;
     }
 
-   @Override
+    public void addPublishers(List<Publisher> publisherList) {
+        if (publishers == null)
+            publishers = new ArrayList<>();
+        publishers.addAll(publisherList);
+    }
+
+    public void removePublishers(List<Publisher> publisherList) {
+        if (publisherList != null)
+            publishers.removeAll(publisherList);
+    }
+
+    @Override
     public String toString() {
         return "Book{" +
-                "id=" + super.getId()+
+                "id=" + super.getId() +
                 ", title='" + super.getTitle() + '\'' +
                 ", description='" + super.getDescription() + '\'' +
                 ", publicationYear='" + publicationYear + '\'' +
                 ", amazonRating='" + amazonRating + '\'' +
                 ", genre=" + genre +
-//                ", publishers=" + publishers +
+                ", publishers=" + publishers +
                 ", bookCT='" + bookCT + '\'' +
                 '}';
     }
