@@ -14,7 +14,7 @@ create table IF NOT EXISTS `Book`(
   `Book_ID` int(11) not null auto_increment,
   `Book_title` VARCHAR(255) DEFAULT NULL,
   `Book_description` VARCHAR(255) DEFAULT NULL,
-  `Book_publish_year` DATE DEFAULT NULL,
+  `Book_publish_year` varchar(255) DEFAULT NULL,
   `Book_amazon_rating` float(2,1),
   `Book_CT` DATETIME default current_timestamp(),
   `Book_genre` VARCHAR(255) DEFAULT null,

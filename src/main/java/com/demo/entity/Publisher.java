@@ -14,12 +14,7 @@ public class Publisher {
     @Column(name = "Publisher_name")
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL)
-    @JoinTable(name = "Book_publisher",
-    joinColumns = @JoinColumn(name = "Book_publisher_publisher_id"),
-    inverseJoinColumns = @JoinColumn(name = "Book_publisher_book_id")
-    )
+    @ManyToMany(mappedBy = "publishers", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Book> books;
 
     public Publisher() {
@@ -67,9 +62,6 @@ public class Publisher {
 
     @Override
     public String toString() {
-        return "Publisher{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return name;
     }
 }

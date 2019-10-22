@@ -46,12 +46,12 @@ public class BookDAOImpl implements BookDAO {
         session.delete(book);
     }
 
+    //todo: fetch all the publishers at once for performance improvement
     public Publisher getPublisherByName(String name, long bookID) {
         Session session = sessionFactory.getCurrentSession();
-        Query<Publisher> query = session.createQuery("select p from Publisher p join p.books b where b.id=:bookID " +
-                "and p.name=:name", Publisher.class);
+        Query<Publisher> query = session.createQuery("select p from Publisher p join p.books b where" +
+                " p.name=:name", Publisher.class);
 
-        query.setParameter("bookID", bookID);
         query.setParameter("name", name);
 
         List<Publisher> resultList = query.getResultList();

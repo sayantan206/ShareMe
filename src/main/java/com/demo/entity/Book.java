@@ -25,8 +25,7 @@ public class Book extends Bookmark {
     @Column(name = "Book_genre")
     private String genre;
 
-    @ManyToMany(fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "Book_publisher",
             joinColumns = @JoinColumn(name = "Book_publisher_book_id"),
             inverseJoinColumns = @JoinColumn(name = "Book_publisher_publisher_id")
@@ -83,6 +82,8 @@ public class Book extends Bookmark {
 
     public void setPublishers(List<Publisher> publishers) {
         this.publishers = publishers;
+        //create bi-directional link
+        publishers.forEach(p -> p.setBooks(List.of(this)));
     }
 
     public String getBookCT() {
