@@ -1,6 +1,7 @@
 package com.demo.service.impl;
 
 import com.demo.dao.BookDAO;
+import com.demo.entity.Author;
 import com.demo.entity.Book;
 import com.demo.entity.Publisher;
 import com.demo.service.BookService;
@@ -41,7 +42,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Transactional
-    public Publisher getPublisherByName(String name, long bookID) {
-        return bookDAO.getPublisherByName(name, bookID);
+    public Publisher getPublisherByName(String name) {
+        return bookDAO.getPublisherByName(name);
+    }
+
+    @Transactional
+    public Author getAuthorByName(String name) {
+        return bookDAO.getAuthorByName(name);
     }
 }

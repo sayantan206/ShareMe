@@ -1,8 +1,9 @@
 package com.demo.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Publisher {
@@ -15,7 +16,7 @@ public class Publisher {
     private String name;
 
     @ManyToMany(mappedBy = "publishers", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Book> books;
+    private Set<Book> books;
 
     public Publisher() {
         //method called by spring container
@@ -41,22 +42,22 @@ public class Publisher {
         this.name = name;
     }
 
-    public List<Book> getBooks() {
+    public Set<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(Set<Book> books) {
         this.books = books;
     }
 
-    public void addBooks(List<Book> bookList){
-        if(books == null)
-            books = new ArrayList<>();
+    public void addBooks(List<Book> bookList) {
+        if (books == null)
+            books = new HashSet<>();
         books.addAll(bookList);
     }
 
-    public void removeBooks(List<Book> bookList){
-        if(bookList != null)
+    public void removeBooks(Set<Book> bookList) {
+        if (bookList != null)
             books.removeAll(bookList);
     }
 
