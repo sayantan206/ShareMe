@@ -8,6 +8,7 @@ import com.demo.utility.CustomAuthorEditor;
 import com.demo.utility.CustomPublisherEditor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -44,9 +45,12 @@ public class BookController {
         return mav;
     }
 
-    //todo: fix binding result error
     @PostMapping("/save")
-    public String saveBookmark(@ModelAttribute("book") Book book) {
+    public String saveBookmark(@ModelAttribute("book") Book book, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            System.out.println("Binding Errors -> "+bindingResult.getAllErrors());
+            return "form";
+        }
         book.getPublishers()
                 .forEach(p -> p.setId(bookService.getPublisherByName(p.getName()).getId()));
 

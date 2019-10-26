@@ -1,6 +1,7 @@
 package com.demo.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ public class Publisher {
     private String name;
 
     @ManyToMany(mappedBy = "publishers", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Book> books;
+    private Set<Book> books = new HashSet<>();
 
     public Publisher() {
         //method called by spring container
