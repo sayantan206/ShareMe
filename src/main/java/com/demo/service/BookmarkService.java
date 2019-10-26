@@ -1,13 +1,14 @@
 package com.demo.service;
 
+import com.demo.entity.Book;
 import com.demo.entity.Bookmark;
 
-import java.util.List;
+import java.util.LinkedHashSet;
 
 public interface BookmarkService<T extends Bookmark> {
-    List<T> listBookmark();
+    LinkedHashSet<Book> listBookmark();
 
-    void addOrUpdateBookmark(T t);
+    void saveCustomer(T t);
 
     T getBookmarkByID(long id);
 

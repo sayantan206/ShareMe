@@ -1,8 +1,9 @@
 package com.demo.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Publisher {
@@ -14,13 +15,8 @@ public class Publisher {
     @Column(name = "Publisher_name")
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL)
-    @JoinTable(name = "Book_publisher",
-    joinColumns = @JoinColumn(name = "Book_publisher_publisher_id"),
-    inverseJoinColumns = @JoinColumn(name = "Book_publisher_book_id")
-    )
-    private List<Book> books;
+    @ManyToMany(mappedBy = "publishers", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Book> books = new HashSet<>();
 
     public Publisher() {
         //method called by spring container
@@ -46,30 +42,36 @@ public class Publisher {
         this.name = name;
     }
 
-    public List<Book> getBooks() {
+    public Set<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(Set<Book> books) {
         this.books = books;
     }
 
-    public void addBooks(List<Book> bookList){
-        if(books == null)
-            books = new ArrayList<>();
-        books.addAll(bookList);
+    public void addBook(Book book) {
+        this.books.add(book);
     }
 
-    public void removeBooks(List<Book> bookList){
-        if(bookList != null)
-            books.removeAll(bookList);
+    public void removeBook(Book book) {
+        this.books.remove(book);
     }
 
     @Override
     public String toString() {
-        return "Publisher{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        return id != 0L && id == ((Publisher) o).getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

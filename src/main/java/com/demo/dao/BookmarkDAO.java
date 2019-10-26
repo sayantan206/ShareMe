@@ -3,12 +3,14 @@ package com.demo.dao;
 import com.demo.entity.Book;
 import com.demo.entity.Bookmark;
 
-import java.util.List;
+import java.util.LinkedHashSet;
 
 public interface BookmarkDAO<T extends Bookmark> {
-    List<T> listBookmark();
+    LinkedHashSet<Book> listBookmark();
 
-    void addOrUpdateBookmark(T t);
+    void saveBookmark(T t);
+
+    void updateBookmark(T t);
 
     Book getBookmarkByID(long id);
 

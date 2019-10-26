@@ -1,8 +1,10 @@
 package com.demo.controller;
 
+import com.demo.entity.Author;
 import com.demo.entity.Book;
 import com.demo.entity.Publisher;
 import com.demo.service.BookService;
+import com.demo.utility.CustomAuthorEditor;
 import com.demo.utility.CustomPublisherEditor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,9 @@ public class BookController {
     public void preProcess(WebDataBinder binder) {
         PropertyEditor editor = new CustomPublisherEditor();
         binder.registerCustomEditor(Publisher.class, "publishers", editor);
+
+        editor = new CustomAuthorEditor();
+        binder.registerCustomEditor(Author.class, "authors", editor);
     }
 
     @GetMapping("/list")
@@ -42,13 +47,16 @@ public class BookController {
 
     @PostMapping("/save")
     public String saveBookmark(@ModelAttribute("book") Book book, BindingResult bindingResult) {
-        book.getPublishers()
-                .forEach(p -> p.setId(bookService.getPublisherByName(p.getName(), book.getId()).getId()));
-        bookService.addOrUpdateBookmark(book);
-        if (bindingResult.hasErrors()) {
-            System.out.println("[Error: Binding error -> ]" + bindingResult.getAllErrors());
+        if(bindingResult.hasErrors()){
+            System.out.println("Binding Errors -> "+bindingResult.getAllErrors());
             return "form";
         }
+        book.getPublishers()
+                .forEach(p -> p.setId(bookService.getPublisherByName(p.getName()).getId()));
+
+        book.getAuthors()
+                .forEach(a -> a.setId(bookService.getAuthorByName(a.getName()).getId()));
+        bookService.saveCustomer(book);
         return "redirect:/book/list";
     }
 
