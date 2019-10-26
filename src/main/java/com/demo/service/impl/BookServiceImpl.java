@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
+import java.util.LinkedHashSet;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -17,13 +17,17 @@ public class BookServiceImpl implements BookService {
     private BookDAO bookDAO;
 
     @Transactional
-    public List<Book> listBookmark() {
+    public LinkedHashSet<Book> listBookmark() {
         return bookDAO.listBookmark();
     }
 
     @Transactional
-    public void addOrUpdateBookmark(Book book) {
-        bookDAO.addOrUpdateBookmark(book);
+    public void saveCustomer(Book book) {
+        Book savedBook = bookDAO.getBookmarkByID(book.getId());
+        if(savedBook == null)
+            bookDAO.saveBookmark(book);
+        else
+            bookDAO.updateBookmark(book);
     }
 
     @Transactional

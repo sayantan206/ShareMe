@@ -1,8 +1,7 @@
 package com.demo.entity;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -50,19 +49,28 @@ public class Publisher {
         this.books = books;
     }
 
-    public void addBooks(List<Book> bookList) {
-        if (books == null)
-            books = new HashSet<>();
-        books.addAll(bookList);
+    public void addBook(Book book) {
+        this.books.add(book);
     }
 
-    public void removeBooks(Set<Book> bookList) {
-        if (bookList != null)
-            books.removeAll(bookList);
+    public void removeBook(Book book) {
+        this.books.remove(book);
     }
 
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        return id != 0L && id == ((Publisher) o).getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

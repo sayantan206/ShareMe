@@ -5,16 +5,22 @@ import com.demo.entity.Book;
 import com.demo.entity.Movie;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.LinkedHashSet;
+
 @Component
 public class MovieDAOImpl implements MovieDAO {
 
     @Override
-    public List<Movie> listBookmark() {
+    public LinkedHashSet<Book> listBookmark() {
         return null;
     }
 
-    public void addOrUpdateBookmark(Movie movie) {
+    public void saveBookmark(Movie movie) {
+
+    }
+
+    @Override
+    public void updateBookmark(Movie movie) {
 
     }
 

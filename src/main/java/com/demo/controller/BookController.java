@@ -8,7 +8,6 @@ import com.demo.utility.CustomAuthorEditor;
 import com.demo.utility.CustomPublisherEditor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -45,18 +44,15 @@ public class BookController {
         return mav;
     }
 
+    //todo: fix binding result error
     @PostMapping("/save")
-    public String saveBookmark(@ModelAttribute("book") Book book, BindingResult bindingResult) {
+    public String saveBookmark(@ModelAttribute("book") Book book) {
         book.getPublishers()
                 .forEach(p -> p.setId(bookService.getPublisherByName(p.getName()).getId()));
 
         book.getAuthors()
                 .forEach(a -> a.setId(bookService.getAuthorByName(a.getName()).getId()));
-        bookService.addOrUpdateBookmark(book);
-        if (bindingResult.hasErrors()) {
-            System.out.println("[Error: Binding error -> ]" + bindingResult.getAllErrors());
-            return "form";
-        }
+        bookService.saveCustomer(book);
         return "redirect:/book/list";
     }
 

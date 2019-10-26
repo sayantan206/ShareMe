@@ -10,6 +10,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 
 @Component
@@ -18,23 +19,34 @@ public class BookDAOImpl implements BookDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public List<Book> listBookmark() {
+    public LinkedHashSet<Book> listBookmark() {
         System.out.println("-----------------------List-----------------------");
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Book order by bookCT", Book.class).list();
+        return new LinkedHashSet<>(session.createQuery("select b from Book b left join fetch b.publishers" +
+                " left join fetch b.authors order by b.bookCT", Book.class).list());
     }
 
     //todo: separate add and update method as saveOrUpdate fires unnecessary amount of queries
-    public void addOrUpdateBookmark(Book book) {
-        System.out.println("-----------------------Save/Update-----------------------");
+    public void saveBookmark(Book book) {
+        System.out.println("-----------------------Save-----------------------");
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(book);
+    }
+
+    @Override
+    public void updateBookmark(Book book) {
+        System.out.println("-----------------------Update-----------------------");
+        Session session = sessionFactory.getCurrentSession();
+        session.merge(book);
     }
 
     public Book getBookmarkByID(long id) {
         System.out.println("-----------------------Get book by id-----------------------");
         Session session = sessionFactory.getCurrentSession();
-        return session.get(Book.class, id);
+        LinkedHashSet<Book> books = new LinkedHashSet<>(session.createQuery("select b from Book b left join fetch b.publishers" +
+                " left join fetch b.authors where b.id=:id", Book.class).setParameter("id", id).list());
+
+        return books.iterator().hasNext() ? books.iterator().next() : null;
     }
 
     public void deleteBookmark(long id) {
@@ -54,9 +66,9 @@ public class BookDAOImpl implements BookDAO {
 
     //todo: fetch all the publishers at once for performance improvement
     public Publisher getPublisherByName(String name) {
-        System.out.println("-----------------------Get pub by id-----------------------");
+        System.out.println("-----------------------Get pub by name-----------------------");
         Session session = sessionFactory.getCurrentSession();
-        Query<Publisher> query = session.createQuery("select p from Publisher p join p.books b where" +
+        Query<Publisher> query = session.createQuery("select p from Publisher p where" +
                 " p.name=:name", Publisher.class);
 
         query.setParameter("name", name);
@@ -71,7 +83,7 @@ public class BookDAOImpl implements BookDAO {
     public Author getAuthorByName(String name) {
         System.out.println("-----------------------Get author by name-----------------------");
         Session session = sessionFactory.getCurrentSession();
-        Query<Author> query = session.createQuery("select a from Author a join a.books b where" +
+        Query<Author> query = session.createQuery("select a from Author a where" +
                 " a.name=:name", Author.class);
 
         query.setParameter("name", name);
