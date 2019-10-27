@@ -29,33 +29,33 @@
 
         <table>
             <tr>
-                <th>Book Title</th>
+                <th>Movie Title</th>
                 <th>Description</th>
-                <th>Publication Year</th>
-                <th>Amazon Rating</th>
+                <th>Release Year</th>
+                <th>IMDB Rating</th>
                 <th>Genre</th>
-                <th>Publishers</th>
-                <th>Authors</th>
+                <th>Director</th>
+                <th>Actor</th>
                 <th>Action</th>
             </tr>
-            <c:forEach var="movie" items="${books}">
+            <c:forEach var="movie" items="${movies}">
                 <%--create url for update with embedded customer id--%>
-                <c:url var="updateLink" value="/book/update">
+                <c:url var="updateLink" value="/movie/update">
                     <c:param name="bookmarkId" value="${movie.id}"/>
                 </c:url>
 
                 <%--create url to delete with embedded customer id--%>
-                <c:url var="deleteLink" value="/book/delete">
+                <c:url var="deleteLink" value="/movie/delete">
                     <c:param name="bookmarkId" value="${movie.id}"/>
                 </c:url>
                 <tr>
                     <td>${movie.title}</td>
                     <td>${movie.description}</td>
-                    <td>${movie.publicationYear}</td>
-                    <td>${movie.amazonRating}</td>
+                    <td>${movie.releaseYear}</td>
+                    <td>${movie.imdbRating}</td>
                     <td>${movie.genre}</td>
-                    <td>${fn:join(movie.publishers.toArray(), ",")}</td>
-                    <td>${fn:join(movie.authors.toArray(), ",")}</td>
+                    <td>${fn:join(movie.directors.toArray(), ",")}</td>
+                    <td>${fn:join(movie.actors.toArray(), ",")}</td>
                     <td>
                         <a href="${updateLink}"><u>Update</u> | </a><a href="${deleteLink}"><u>Delete</u></a>
                     </td>

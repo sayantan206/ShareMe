@@ -22,7 +22,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Transactional
-    public void saveCustomer(Book book) {
+    public void saveBookmark(Book book) {
         Book savedBook = bookDAO.getBookmarkByID(book.getId());
         if(savedBook == null)
             bookDAO.saveBookmark(book);

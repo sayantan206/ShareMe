@@ -26,7 +26,6 @@ public class BookDAOImpl implements BookDAO {
                 " left join fetch b.authors order by b.bookCT", Book.class).list());
     }
 
-    //todo: separate add and update method as saveOrUpdate fires unnecessary amount of queries
     public void saveBookmark(Book book) {
         System.out.println("-----------------------Save-----------------------");
         Session session = sessionFactory.getCurrentSession();

@@ -31,7 +31,7 @@ public class BookController {
     }
 
     @GetMapping("/list")
-    public ModelAndView listCustomer() {
+    public ModelAndView listBookmark() {
         ModelAndView mav = new ModelAndView("list-bookmarks");
         mav.addObject("books", bookService.listBookmark());
 
@@ -56,7 +56,7 @@ public class BookController {
 
         book.getAuthors()
                 .forEach(a -> a.setId(bookService.getAuthorByName(a.getName()).getId()));
-        bookService.saveCustomer(book);
+        bookService.saveBookmark(book);
         return "redirect:/book/list";
     }
 
@@ -70,7 +70,7 @@ public class BookController {
     }
 
     @GetMapping("/delete")
-    public String deleteCustomer(@RequestParam("bookmarkId") int Id) {
+    public String deleteBookmark(@RequestParam("bookmarkId") int Id) {
         bookService.deleteBookmark(Id);
         return "redirect:/book/list";
     }
