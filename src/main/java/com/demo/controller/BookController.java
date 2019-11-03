@@ -32,6 +32,15 @@ public class BookController {
 
     @GetMapping("/list")
     public ModelAndView listBookmark() {
+        ModelAndView mav = new ModelAndView("list-all");
+        mav.addObject("bookmarks", bookService.listBookmark());
+
+        return mav;
+    }
+
+    //todo: delete dummy
+    @GetMapping("/list2")
+    public ModelAndView listBookmark2() {
         ModelAndView mav = new ModelAndView("list-bookmarks");
         mav.addObject("books", bookService.listBookmark());
 

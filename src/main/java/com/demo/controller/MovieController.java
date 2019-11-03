@@ -32,6 +32,15 @@ public class MovieController {
 
     @GetMapping("/list")
     public ModelAndView listBookmark() {
+        ModelAndView mav = new ModelAndView("list-all");
+        mav.addObject("bookmarks", movieService.listBookmark());
+
+        return mav;
+    }
+
+    //todo: delete dummy
+    @GetMapping("/list2")
+    public ModelAndView listBookmark2() {
         ModelAndView mav = new ModelAndView("list-movies");
         mav.addObject("movies", movieService.listBookmark());
 

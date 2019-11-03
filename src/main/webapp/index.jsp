@@ -12,6 +12,6 @@
     <title>$Title$</title>
 </head>
 <body>
-<% response.sendRedirect("book/list"); %>
+<% response.sendRedirect("recent/post"); %>
 </body>
 </html>
