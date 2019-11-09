@@ -1,6 +1,8 @@
 package com.demo.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @MappedSuperclass
 public abstract class Bookmark {
@@ -11,6 +13,8 @@ public abstract class Bookmark {
     private long id;
 
     @Column(name = "Book_title")
+    @NotNull(message = "This field cannot be empty")
+    @Size(min = 1, message = "This field cannot be empty")
     private String title;
 
     @Column(name = "Book_description")

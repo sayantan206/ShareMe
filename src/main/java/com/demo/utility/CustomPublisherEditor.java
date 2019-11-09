@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class CustomPublisherEditor extends PropertyEditorSupport {
-    private Set<Publisher> publisherList;
 
     @Override
     public String getAsText() {
@@ -16,7 +15,7 @@ public class CustomPublisherEditor extends PropertyEditorSupport {
 
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
-        publisherList = new HashSet<>();
+        Set<Publisher> publisherList = new HashSet<>();
 
         String[] publishers = text.split(",");
         for (String publisherName : publishers)

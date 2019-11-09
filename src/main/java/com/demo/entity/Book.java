@@ -4,10 +4,8 @@ import com.demo.constants.BookGenre;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import javax.validation.constraints.*;
+import java.util.*;
 
 @Entity
 @AttributeOverrides({
@@ -17,11 +15,16 @@ import java.util.Set;
 })
 public class Book extends Bookmark {
 
+    //todo: change pub year and rating to date and long for @PastOrPresent and @Min,@Max
     @Column(name = "Book_publish_year")
+    @Pattern(regexp = "^19[5-9]\\d|20[0-4]\\d|2050$", message = "Invalid input")
+    @NotEmpty(message = "This field cannot be empty")
     private String publicationYear;
 
     @Column(name = "Book_amazon_rating")
-    private String amazonRating;
+    @DecimalMin(value = "0.0", inclusive = false, message = "Incorrect input")
+    @DecimalMax(value = "5.0", inclusive = true, message = "Incorrect input")
+    private float amazonRating;
 
     @Column(name = "Book_genre")
     private String genre;
@@ -32,6 +35,7 @@ public class Book extends Bookmark {
             joinColumns = @JoinColumn(name = "Book_publisher_book_id"),
             inverseJoinColumns = @JoinColumn(name = "Book_publisher_publisher_id")
     )
+    @NotEmpty(message = "This field cannot be empty")
     private Set<Publisher> publishers = new HashSet<>();
 
     @Column(name = "Book_CT")
@@ -42,13 +46,14 @@ public class Book extends Bookmark {
             joinColumns = @JoinColumn(name = "Book_author_book_id"),
             inverseJoinColumns = @JoinColumn(name = "Book_author_author_id")
     )
+    @NotEmpty(message = "This field cannot be empty")
     private Set<Author> authors = new HashSet<>();
 
     public Book() {
         //method called by spring container
     }
 
-    public Book(String title, String description, String publicationYear, String amazonRating, String genre) {
+    public Book(String title, String description, String publicationYear, float amazonRating, String genre) {
         super(title, description);
         this.publicationYear = publicationYear;
         this.amazonRating = amazonRating;
@@ -63,11 +68,11 @@ public class Book extends Bookmark {
         this.publicationYear = publicationYear;
     }
 
-    public String getAmazonRating() {
+    public float getAmazonRating() {
         return amazonRating;
     }
 
-    public void setAmazonRating(String amazonRating) {
+    public void setAmazonRating(float amazonRating) {
         this.amazonRating = amazonRating;
     }
 
