@@ -27,7 +27,7 @@
         });
 
 
-        //disable enter key for form submission
+        //disable form submission on enter key
         document.onkeypress = stopRKey;
     </script>
 
@@ -56,12 +56,12 @@
     <div id="add-form">
         <div class="demo-card-wide mdl-card mdl-shadow--2dp">
             <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Add Book</h2>
+                <h2 class="mdl-card__title-text">Add Movie</h2>
             </div>
 
 
             <div class="mdl-card__supporting-text">
-                <form:form action="save" modelAttribute="book" method="post">
+                <form:form action="save" modelAttribute="movie" method="post">
                     <%--embedded id for update--%>
                     <form:hidden path="id"/>
 
@@ -79,34 +79,34 @@
 
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <form:select path="genre" class="mdl-textfield__input" type="text">
-                            <form:options items="${book.genreOptions}"/>
+                            <form:options items="${movie.genreOptions}"/>
                         </form:select>
                         <label class="mdl-textfield__label" for="sample3">Genre</label>
                     </div>
 
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <form:input path="publicationYear" class="mdl-textfield__input" type="text"/>
-                        <label class="mdl-textfield__label" for="sample3">Publication Year</label>
+                        <form:input path="releaseYear" class="mdl-textfield__input" type="text"/>
+                        <label class="mdl-textfield__label" for="sample3">Release Year</label>
                     </div>
-                    <form:errors path="publicationYear" cssClass="error"/>
+                    <form:errors path="releaseYear" cssClass="error"/>
 
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <form:input path="amazonRating" class="mdl-textfield__input" type="text"/>
-                        <label class="mdl-textfield__label" for="sample3">Amazon Rating</label>
+                        <form:input path="imdbRating" class="mdl-textfield__input" type="text"/>
+                        <label class="mdl-textfield__label" for="sample3">IMDB Rating</label>
                     </div>
-                    <form:errors path="amazonRating" cssClass="error"/>
+                    <form:errors path="imdbRating" cssClass="error"/>
 
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <form:input path="publishers" class="mdl-textfield__input" type="text"/>
-                        <label class="mdl-textfield__label" for="sample3">Publishers</label>
+                        <form:input path="directors" class="mdl-textfield__input" type="text"/>
+                        <label class="mdl-textfield__label" for="sample3">Directors</label>
                     </div>
-                    <form:errors path="publishers" cssClass="error"/>
+                    <form:errors path="directors" cssClass="error"/>
 
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <form:input path="authors" class="mdl-textfield__input mdl-chip__text" type="text"/>
-                        <label class="mdl-textfield__label" for="sample3">Authors</label>
+                        <form:input path="actors" class="mdl-textfield__input mdl-chip__text" type="text"/>
+                        <label class="mdl-textfield__label" for="sample3">Actors</label>
                     </div>
-                    <form:errors path="authors" cssClass="error"/>
+                    <form:errors path="actors" cssClass="error"/>
 
 
                     <div style="padding-top:15px; float: right;">

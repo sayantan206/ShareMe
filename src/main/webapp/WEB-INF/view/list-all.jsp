@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../../resources/static/material.min.css">
     <link rel="stylesheet" href="../../resources/static/style.css">
     <script src="../../resources/static/material.min.js"></script>
-    <script src="../../resources/static/add_page_functions.js"></script>
+    <script src="../../resources/static/list-all.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
