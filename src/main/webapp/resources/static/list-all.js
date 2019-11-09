@@ -16,3 +16,8 @@ function showElementOnPage(pageLink, elementId, isVisible) {
             elementById.style.display = "inline";
     }
 }
+
+function stopRKey(event) {
+    var evt = (event) ? event : ((event) ? event : null);
+    if ((evt.keyCode === 13))  {return false;}
+}

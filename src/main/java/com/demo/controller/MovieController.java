@@ -7,12 +7,14 @@ import com.demo.service.MovieService;
 import com.demo.utility.CustomActorEditor;
 import com.demo.utility.CustomDirectorEditor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.beans.PropertyEditor;
 
 @Controller
@@ -23,7 +25,10 @@ public class MovieController {
 
     @InitBinder
     public void preProcess(WebDataBinder binder) {
-        PropertyEditor editor = new CustomDirectorEditor();
+        PropertyEditor  editor = new StringTrimmerEditor(true);
+        binder.registerCustomEditor(String.class, editor);
+
+        editor = new CustomDirectorEditor();
         binder.registerCustomEditor(Director.class, "directors", editor);
 
         editor = new CustomActorEditor();
@@ -47,19 +52,24 @@ public class MovieController {
         return mav;
     }
 
-    @GetMapping("/form")
-    public ModelAndView getForm() {
+    @GetMapping("/form2")
+    public ModelAndView getForm2() {
         ModelAndView mav = new ModelAndView("form-movie");
         mav.addObject("movie", new Movie());
         return mav;
     }
 
+    @GetMapping("/form")
+    public ModelAndView getForm() {
+        ModelAndView mav = new ModelAndView("add-movie");
+        mav.addObject("movie", new Movie());
+        return mav;
+    }
+
     @PostMapping("/save")
-    public String saveBookmark(@ModelAttribute("movie") Movie movie, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            System.out.println("Binding Errors -> " + bindingResult.getAllErrors());
-            return "form-movie";
-        }
+    public String saveBookmark(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "add-movie";
 
         movie.getDirectors()
                 .forEach(d -> d.setId(movieService.getDirectorByName(d.getName()).getId()));

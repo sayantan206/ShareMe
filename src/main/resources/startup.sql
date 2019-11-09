@@ -16,7 +16,7 @@ create table IF NOT EXISTS `Book`(
   `Book_title` VARCHAR(255) DEFAULT NULL,
   `Book_description` TEXT DEFAULT NULL,
   `Book_publish_year` varchar(255) DEFAULT NULL,
-  `Book_amazon_rating`  FLOAT(2,1) DEFAULT NULL,
+  `Book_amazon_rating` FLOAT(2,1) DEFAULT NULL,
   `Book_CT` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `Book_genre` VARCHAR(255) DEFAULT null,
   PRIMARY KEY (`Book_ID`)
@@ -75,9 +75,9 @@ CREATE TABLE Book_author (
 create table IF NOT EXISTS `Movie`(
   `Movie_ID` int(11) not null auto_increment,
   `Movie_title` VARCHAR(255) DEFAULT NULL,
-  `Movie_description` VARCHAR(255) DEFAULT NULL,
+  `Movie_description` TEXT DEFAULT NULL,
   `Movie_release_year` varchar(255) DEFAULT NULL,
-  `Movie_imdb_rating` VARCHAR(4) DEFAULT null,
+  `Movie_imdb_rating` FLOAT(2,1) DEFAULT NULL,
   `Movie_CT` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `Movie_genre` VARCHAR(255) DEFAULT null,
   PRIMARY KEY (`Movie_ID`)

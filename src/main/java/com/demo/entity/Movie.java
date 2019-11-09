@@ -4,6 +4,10 @@ package com.demo.entity;
 import com.demo.constants.MovieGenre;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -18,10 +22,14 @@ import java.util.Set;
 public class Movie extends Bookmark {
 
     @Column(name = "Movie_release_year")
+    @Pattern(regexp = "^19[5-9]\\d|20[0-4]\\d|2050$", message = "Invalid input")
+    @NotEmpty(message = "This field cannot be empty")
     private String releaseYear;
 
     @Column(name = "Movie_imdb_rating")
-    private String imdbRating;
+    @DecimalMin(value = "0.0", inclusive = false, message = "Incorrect input")
+    @DecimalMax(value = "10.0", inclusive = true, message = "Incorrect input")
+    private float imdbRating;
 
     @Column(name = "Movie_CT")
     private String movieCT;
@@ -34,6 +42,7 @@ public class Movie extends Bookmark {
             joinColumns = @JoinColumn(name = "Movie_director_movie_id"),
             inverseJoinColumns = @JoinColumn(name = "Movie_director_director_id")
     )
+    @NotEmpty(message = "This field cannot be empty")
     private Set<Director> directors = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -41,13 +50,14 @@ public class Movie extends Bookmark {
             joinColumns = @JoinColumn(name = "Movie_actor_movie_id"),
             inverseJoinColumns = @JoinColumn(name = "Movie_actor_actor_id")
     )
+    @NotEmpty(message = "This field cannot be empty")
     private Set<Actor> actors = new HashSet<>();
 
     public Movie() {
         //constructor called by spring container
     }
 
-    public Movie(String title, String description, String releaseYear, String imdbRating, String genre) {
+    public Movie(String title, String description, String releaseYear, float imdbRating, String genre) {
         super(title, description);
         this.releaseYear = releaseYear;
         this.imdbRating = imdbRating;
@@ -62,11 +72,11 @@ public class Movie extends Bookmark {
         this.releaseYear = releaseYear;
     }
 
-    public String getImdbRating() {
+    public float getImdbRating() {
         return imdbRating;
     }
 
-    public void setImdbRating(String imdbRating) {
+    public void setImdbRating(float imdbRating) {
         this.imdbRating = imdbRating;
     }
 
