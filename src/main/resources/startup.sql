@@ -14,9 +14,9 @@ create table if not exists `Author`(
 create table IF NOT EXISTS `Book`(
   `Book_ID` int(11) not null auto_increment,
   `Book_title` VARCHAR(255) DEFAULT NULL,
-  `Book_description` VARCHAR(255) DEFAULT NULL,
+  `Book_description` TEXT DEFAULT NULL,
   `Book_publish_year` varchar(255) DEFAULT NULL,
-  `Book_amazon_rating` VARCHAR(4) DEFAULT null,
+  `Book_amazon_rating`  FLOAT(2,1) DEFAULT NULL,
   `Book_CT` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `Book_genre` VARCHAR(255) DEFAULT null,
   PRIMARY KEY (`Book_ID`)
