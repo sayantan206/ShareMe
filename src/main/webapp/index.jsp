@@ -12,6 +12,6 @@
     <title>$Title$</title>
 </head>
 <body>
-<% response.sendRedirect("recent/post"); %>
+<% response.sendRedirect("recent/list"); %>
 </body>
 </html>

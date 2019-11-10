@@ -16,7 +16,6 @@
         $(window).load(function () {
             // Animate loader off screen
             $(".loader").fadeOut("slow");
-            showElementOnPage("/recent/list", "addBtn", false);
             setNavigationHighlight();
         });
     </script>
@@ -80,29 +79,31 @@
                 <div class="mdl-card__actions mdl-card--border">
                     <div align="right">
                         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                            View
+                            View Post
                         </a>
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                            Save
-                        </a>
+
+                        <!-- Right aligned menu on top of button  -->
+                        <button id="demo-menu-top-right-${bookmark.id}"
+                                class="mdl-button mdl-js-button mdl-button--icon">
+                            <i class="material-icons">more_vert</i>
+                        </button>
+
+                        <ul class="mdl-menu mdl-menu--top-right mdl-js-menu mdl-js-ripple-effect"
+                            data-mdl-for="demo-menu-top-right-${bookmark.id}">
+                            <li class="mdl-menu__item" onclick="window.location.href='update?bookmarkId=${bookmark.id}';
+                                    return false;">Edit
+                            </li>
+                            <li class="mdl-menu__item" onclick="window.location.href='delete?bookmarkId=${bookmark.id}';
+                                    return false;">Delete
+                            </li>
+                            <li disabled class="mdl-menu__item">Share</li>
+                            <li disabled class="mdl-menu__item">Archive</li>
+                            <li disabled class="mdl-menu__item">Favourite</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </c:forEach>
-    </div>
-
-    <%--floating button group--%>
-    <div id="floating-button-group">
-        <button style="display: none" id="addBtn"
-                class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fixed-button"
-                onclick="window.location.href='form'; return false;" title="Add Bookmark">
-            <i class="material-icons">add</i>
-        </button>
-        <%--<button id="scrollBtn"
-                class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fixed-button"
-                onclick="scrollToTop(this.id)" title="Go to top">
-            <i class="material-icons">arrow_upward</i>
-        </button>--%>
     </div>
 </div>
 </body>
