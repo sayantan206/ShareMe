@@ -1,5 +1,6 @@
 package com.demo.controller;
 
+import com.demo.constants.BookmarkType;
 import com.demo.entity.Actor;
 import com.demo.entity.Director;
 import com.demo.entity.Movie;
@@ -55,14 +56,20 @@ public class MovieController {
     @GetMapping("/form2")
     public ModelAndView getForm2() {
         ModelAndView mav = new ModelAndView("form-movie");
-        mav.addObject("movie", new Movie());
+        Movie movie = new Movie();
+        movie.setBookmarkType(BookmarkType.Movie);
+
+        mav.addObject("movie", movie);
         return mav;
     }
 
     @GetMapping("/form")
     public ModelAndView getForm() {
         ModelAndView mav = new ModelAndView("add-movie");
-        mav.addObject("movie", new Movie());
+        Movie movie = new Movie();
+        movie.setBookmarkType(BookmarkType.Movie);
+
+        mav.addObject("movie", movie);
         return mav;
     }
 
@@ -77,12 +84,23 @@ public class MovieController {
                 .forEach(a -> a.setId(movieService.getActorByName(a.getName()).getId()));
 
         movieService.saveBookmark(movie);
-        return "redirect:/movie/list";
+        System.out.println(movie);
+
+        return "redirect:/user_bookmark/list";
+    }
+
+    @GetMapping("/update2")
+    public ModelAndView showUpdateForm2(@RequestParam("bookmarkId") int Id) {
+        ModelAndView mav = new ModelAndView("form-movie");
+        Movie movie = movieService.getBookmarkByID(Id);
+        mav.addObject("movie", movie);
+
+        return mav;
     }
 
     @GetMapping("/update")
     public ModelAndView showUpdateForm(@RequestParam("bookmarkId") int Id) {
-        ModelAndView mav = new ModelAndView("form-movie");
+        ModelAndView mav = new ModelAndView("add-movie");
         Movie movie = movieService.getBookmarkByID(Id);
         mav.addObject("movie", movie);
 
@@ -92,6 +110,6 @@ public class MovieController {
     @GetMapping("/delete")
     public String deleteBookmark(@RequestParam("bookmarkId") int Id) {
         movieService.deleteBookmark(Id);
-        return "redirect:/movie/list";
+        return "redirect:/user_bookmark/list";
     }
 }

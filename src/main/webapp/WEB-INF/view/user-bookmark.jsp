@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 
 <head>
@@ -69,6 +70,8 @@
     <div id="content">
         <!-- add cards inside -->
         <c:forEach var="bookmark" items="${bookmarks}">
+            <c:set var="bookmarkType" value="${fn:toLowerCase(bookmark.bookmarkType)}"/>
+
             <div class="card demo-card-square mdl-card mdl-shadow--2dp">
                 <div class="mdl-card__title mdl-card--expand">
                     <h2 class="mdl-card__title-text">${bookmark.title}</h2>
@@ -90,15 +93,21 @@
 
                         <ul class="mdl-menu mdl-menu--top-right mdl-js-menu mdl-js-ripple-effect"
                             data-mdl-for="demo-menu-top-right-${bookmark.id}">
-                            <li class="mdl-menu__item" onclick="window.location.href='update?bookmarkId=${bookmark.id}';
-                                    return false;">Edit
+                            <li>
+                                <a class="mdl-menu__item"
+                                   href="${pageContext.request.contextPath}/${bookmarkType}/update?bookmarkId=${bookmark.id}">
+                                    Edit
+                                </a>
                             </li>
-                            <li class="mdl-menu__item" onclick="window.location.href='delete?bookmarkId=${bookmark.id}';
-                                    return false;">Delete
+                            <li>
+                                <a class="mdl-menu__item"
+                                   href="${pageContext.request.contextPath}/${bookmarkType}/delete?bookmarkId=${bookmark.id}">
+                                    Delete
+                                </a>
                             </li>
-                            <li disabled class="mdl-menu__item">Share</li>
-                            <li disabled class="mdl-menu__item">Archive</li>
-                            <li disabled class="mdl-menu__item">Favourite</li>
+                            <li><a disabled class="mdl-menu__item">Share</a></li>
+                            <li><a disabled class="mdl-menu__item">Archive</a></li>
+                            <li><a disabled class="mdl-menu__item">Favourite</a></li>
                         </ul>
                     </div>
                 </div>

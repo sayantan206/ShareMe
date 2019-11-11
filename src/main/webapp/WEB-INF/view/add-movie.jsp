@@ -64,6 +64,7 @@
                 <form:form action="save" modelAttribute="movie" method="post">
                     <%--embedded id for update--%>
                     <form:hidden path="id"/>
+                    <form:hidden path="bookmarkType"/>
 
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <form:input path="title" class="mdl-textfield__input" type="text" id="sample3"/>

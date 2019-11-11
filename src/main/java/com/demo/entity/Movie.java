@@ -1,6 +1,7 @@
 package com.demo.entity;
 
 
+import com.demo.constants.BookmarkType;
 import com.demo.constants.MovieGenre;
 
 import javax.persistence.*;
@@ -17,7 +18,8 @@ import java.util.Set;
 @AttributeOverrides({
         @AttributeOverride(name = "id", column = @Column(name = "Movie_ID")),
         @AttributeOverride(name = "title", column = @Column(name = "Movie_Title")),
-        @AttributeOverride(name = "description", column = @Column(name = "Movie_description"))
+        @AttributeOverride(name = "description", column = @Column(name = "Movie_description")),
+        @AttributeOverride(name = "bookmarkType", column = @Column(name = "Movie_typeId"))
 })
 public class Movie extends Bookmark {
 
@@ -62,6 +64,7 @@ public class Movie extends Bookmark {
         this.releaseYear = releaseYear;
         this.imdbRating = imdbRating;
         this.genre = genre;
+        super.setBookmarkType(BookmarkType.Movie);
     }
 
     public String getReleaseYear() {
@@ -141,8 +144,12 @@ public class Movie extends Bookmark {
     @Override
     public String toString() {
         return super.toString() + "Movie{" +
-                "releaseYear='" + releaseYear + '\'' +
+                "id=" + super.getId() +
+                ", title='" + super.getTitle() + '\'' +
+                ", description='" + super.getDescription() + '\'' +
+                ", releaseYear='" + releaseYear + '\'' +
                 ", imdbRating='" + imdbRating + '\'' +
+                ", bookmarkType='" + super.getBookmarkType() + '\'' +
                 ", genre='" + genre + '\'' +
                 "} ";
     }

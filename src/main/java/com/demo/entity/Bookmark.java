@@ -1,5 +1,7 @@
 package com.demo.entity;
 
+import com.demo.constants.BookmarkType;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,6 +25,9 @@ public abstract class Bookmark {
     //todo: add profileURL
     /*@Column
     private String profileURL;*/
+
+    @Column(name = "Book_typeId")
+    private BookmarkType bookmarkType;
 
     public Bookmark() {
     }
@@ -54,5 +59,13 @@ public abstract class Bookmark {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public BookmarkType getBookmarkType() {
+        return bookmarkType;
+    }
+
+    public void setBookmarkType(BookmarkType bookmarkType) {
+        this.bookmarkType = bookmarkType;
     }
 }

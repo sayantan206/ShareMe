@@ -80,7 +80,7 @@
                 <div class="mdl-card__actions mdl-card--border">
                     <div align="right">
                         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                            View
+                            View Post
                         </a>
                         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                             Save

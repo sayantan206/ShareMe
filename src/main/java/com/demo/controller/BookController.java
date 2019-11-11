@@ -1,5 +1,6 @@
 package com.demo.controller;
 
+import com.demo.constants.BookmarkType;
 import com.demo.entity.Author;
 import com.demo.entity.Book;
 import com.demo.entity.Publisher;
@@ -54,14 +55,20 @@ public class BookController {    //todo: delete dummy controller mappings
     @GetMapping("/form")
     public ModelAndView getForm() {
         ModelAndView mav = new ModelAndView("add-book");
-        mav.addObject("book", new Book());
+        Book book = new Book();
+        book.setBookmarkType(BookmarkType.Book);
+
+        mav.addObject("book", book);
         return mav;
     }
 
     @GetMapping("/form2")
     public ModelAndView getForm2() {
         ModelAndView mav = new ModelAndView("form");
-        mav.addObject("book", new Book());
+        Book book = new Book();
+        book.setBookmarkType(BookmarkType.Book);
+
+        mav.addObject("book", book);
         return mav;
     }
 
@@ -75,7 +82,9 @@ public class BookController {    //todo: delete dummy controller mappings
         book.getAuthors()
                 .forEach(a -> a.setId(bookService.getAuthorByName(a.getName()).getId()));
         bookService.saveBookmark(book);
-        return "redirect:/book/list";
+        System.out.println(book);
+
+        return "redirect:/user_bookmark/list";
     }
 
     @GetMapping("/update2")
@@ -99,6 +108,6 @@ public class BookController {    //todo: delete dummy controller mappings
     @GetMapping("/delete")
     public String deleteBookmark(@RequestParam("bookmarkId") int Id) {
         bookService.deleteBookmark(Id);
-        return "redirect:/book/list";
+        return "redirect:/user_bookmark/list";
     }
 }
