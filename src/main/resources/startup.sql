@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `Book` (
   `Book_CT`            TIMESTAMP        DEFAULT CURRENT_TIMESTAMP,
   `Book_genre`         VARCHAR(255)     DEFAULT NULL,
   `Book_typeId`        INT(1)           DEFAULT 0,
+  `Book_image_url`     VARCHAR(255)     DEFAULT NULL,
   PRIMARY KEY (`Book_ID`)
 )
   ENGINE = InnoDB

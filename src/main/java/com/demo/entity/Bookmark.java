@@ -1,6 +1,7 @@
 package com.demo.entity;
 
 import com.demo.constants.BookmarkType;
+import com.demo.utility.ImageFileValidator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -28,6 +29,10 @@ public abstract class Bookmark {
 
     @Column(name = "Book_typeId")
     private BookmarkType bookmarkType;
+
+    @Column(name = "Book_image_url")
+    @ImageFileValidator()
+    private String imageURL;
 
     public Bookmark() {
     }
@@ -67,5 +72,13 @@ public abstract class Bookmark {
 
     public void setBookmarkType(BookmarkType bookmarkType) {
         this.bookmarkType = bookmarkType;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 }

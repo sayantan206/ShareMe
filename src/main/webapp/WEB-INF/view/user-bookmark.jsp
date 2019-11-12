@@ -72,23 +72,26 @@
         <c:forEach var="bookmark" items="${bookmarks}">
             <c:set var="bookmarkType" value="${fn:toLowerCase(bookmark.bookmarkType)}"/>
 
-            <div class="card demo-card-square mdl-card mdl-shadow--2dp">
-                <div class="mdl-card__title mdl-card--expand">
-                    <h2 class="mdl-card__title-text">${bookmark.title}</h2>
+            <div class="card demo-card-square mdl-card mdl-shadow--4dp">
+                <div style="background: url(${bookmark.imageURL}) left top;
+                        background-size: 100% 140%;"
+                     class="mdl-card__title mdl-card--expand">
                 </div>
                 <div class="mdl-card__supporting-text description">
-                        ${bookmark.description}
+                    <b style="font-size: 15px">${bookmark.title}</b>: ${bookmark.description}
+
                 </div>
                 <div class="mdl-card__actions mdl-card--border">
                     <div align="right">
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                        <a style="min-width: initial;" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                             View Post
                         </a>
 
                         <!-- Right aligned menu on top of button  -->
                         <button id="demo-menu-top-right-${bookmark.id}"
                                 class="mdl-button mdl-js-button mdl-button--icon">
-                            <i class="material-icons">more_vert</i>
+                            <div id="actions-${bookmark.id}"><i class="material-icons">more_vert</i></div>
+                            <div class="mdl-tooltip" for="actions-${bookmark.id}">Actions</div>
                         </button>
 
                         <ul class="mdl-menu mdl-menu--top-right mdl-js-menu mdl-js-ripple-effect"
@@ -108,6 +111,7 @@
                             <li><a disabled class="mdl-menu__item">Share</a></li>
                             <li><a disabled class="mdl-menu__item">Archive</a></li>
                             <li><a disabled class="mdl-menu__item">Favourite</a></li>
+                            <li><a disabled class="mdl-menu__item">Tag</a></li>
                         </ul>
                     </div>
                 </div>

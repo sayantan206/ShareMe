@@ -19,7 +19,8 @@ import java.util.Set;
         @AttributeOverride(name = "id", column = @Column(name = "Movie_ID")),
         @AttributeOverride(name = "title", column = @Column(name = "Movie_Title")),
         @AttributeOverride(name = "description", column = @Column(name = "Movie_description")),
-        @AttributeOverride(name = "bookmarkType", column = @Column(name = "Movie_typeId"))
+        @AttributeOverride(name = "bookmarkType", column = @Column(name = "Movie_typeId")),
+        @AttributeOverride(name = "imageURL", column = @Column(name = "Movie_image_url"))
 })
 public class Movie extends Bookmark {
 
@@ -59,11 +60,12 @@ public class Movie extends Bookmark {
         //constructor called by spring container
     }
 
-    public Movie(String title, String description, String releaseYear, float imdbRating, String genre) {
+    public Movie(String title, String description, String releaseYear, float imdbRating, String genre, String imageURL) {
         super(title, description);
         this.releaseYear = releaseYear;
         this.imdbRating = imdbRating;
         this.genre = genre;
+        super.setImageURL(imageURL);
         super.setBookmarkType(BookmarkType.Movie);
     }
 

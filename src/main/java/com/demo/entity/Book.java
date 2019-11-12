@@ -13,7 +13,8 @@ import java.util.*;
         @AttributeOverride(name = "id", column = @Column(name = "Book_ID")),
         @AttributeOverride(name = "title", column = @Column(name = "Book_Title")),
         @AttributeOverride(name = "description", column = @Column(name = "Book_description")),
-        @AttributeOverride(name = "bookmarkType", column = @Column(name = "Book_typeId"))
+        @AttributeOverride(name = "bookmarkType", column = @Column(name = "Book_typeId")),
+        @AttributeOverride(name = "imageURL", column = @Column(name = "Book_image_url"))
 })
 public class Book extends Bookmark {
 
