@@ -1,7 +1,10 @@
 function setNavigationHighlight() {
     for (var i = 0; i < document.links.length; i++) {
         if (document.links[i].href === document.URL) {
-            document.links[i].className += " active";
+            if (document.URL.indexOf("user_bookmark") > -1)
+                document.links[i].className += " active_2";
+            else
+                document.links[i].className += " active";
         }
     }
 }
@@ -20,4 +23,10 @@ function showElementOnPage(pageLink, elementId, isVisible) {
 function stopRKey(event) {
     var evt = (event) ? event : ((event) ? event : null);
     if ((evt.keyCode === 13))  {return false;}
+}
+
+function setFileChooserText(btnId, fieldId) {
+    document.getElementById(btnId).onchange = function () {
+        document.getElementById(fieldId).value = this.files[0].name;
+    };
 }

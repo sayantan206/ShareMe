@@ -26,7 +26,6 @@
             $(".loader").fadeOut("slow");
         });
 
-
         //disable enter key for form submission
         document.onkeypress = stopRKey;
     </script>
@@ -47,7 +46,7 @@
     <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">Browse</span>
         <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="">My List</a>
+            <a class="mdl-navigation__link" href="${pageContext.request.contextPath}/user_bookmark/list">My List</a>
             <a class="mdl-navigation__link" href="">Archive</a>
             <a class="mdl-navigation__link" href="">Favourites</a>
             <a class="mdl-navigation__link" href="">Tags</a>
@@ -64,6 +63,18 @@
                 <form:form action="save" modelAttribute="book" method="post">
                     <%--embedded id for update--%>
                     <form:hidden path="id"/>
+                    <form:hidden path="bookmarkType"/>
+
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <form:input path="imageURL" class="mdl-textfield__input" placeholder="Image" type="text"
+                                    id="uploadFile"/>
+                        <div id="fileIcon" class="mdl-button mdl-button--primary mdl-button--icon mdl-button--file">
+                            <i class="material-icons">attach_file</i>
+                            <div class="mdl-tooltip" for="fileIcon">Choose File or paste URL</div>
+                            <input type="file" id="uploadBtn">
+                        </div>
+                    </div>
+                    <form:errors path="imageURL" cssClass="error"/>
 
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <form:input path="title" class="mdl-textfield__input" type="text" id="sample3"/>
@@ -114,7 +125,8 @@
                                 onclick="window.location.href='list'; return false;">
                             Cancel
                         </button>
-                        <button id="saveBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                        <button id="saveBtn"
+                                class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
                             Save
                         </button>
                     </div>
@@ -124,5 +136,8 @@
         </div>
     </div>
 </div>
+<script>
+    setFileChooserText("uploadBtn", "uploadFile");
+</script>
 </body>
 </html>

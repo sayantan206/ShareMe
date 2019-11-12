@@ -1,6 +1,7 @@
 package com.demo.entity;
 
 
+import com.demo.constants.BookmarkType;
 import com.demo.constants.MovieGenre;
 
 import javax.persistence.*;
@@ -17,7 +18,9 @@ import java.util.Set;
 @AttributeOverrides({
         @AttributeOverride(name = "id", column = @Column(name = "Movie_ID")),
         @AttributeOverride(name = "title", column = @Column(name = "Movie_Title")),
-        @AttributeOverride(name = "description", column = @Column(name = "Movie_description"))
+        @AttributeOverride(name = "description", column = @Column(name = "Movie_description")),
+        @AttributeOverride(name = "bookmarkType", column = @Column(name = "Movie_typeId")),
+        @AttributeOverride(name = "imageURL", column = @Column(name = "Movie_image_url"))
 })
 public class Movie extends Bookmark {
 
@@ -57,11 +60,13 @@ public class Movie extends Bookmark {
         //constructor called by spring container
     }
 
-    public Movie(String title, String description, String releaseYear, float imdbRating, String genre) {
+    public Movie(String title, String description, String releaseYear, float imdbRating, String genre, String imageURL) {
         super(title, description);
         this.releaseYear = releaseYear;
         this.imdbRating = imdbRating;
         this.genre = genre;
+        super.setImageURL(imageURL);
+        super.setBookmarkType(BookmarkType.Movie);
     }
 
     public String getReleaseYear() {
@@ -141,8 +146,12 @@ public class Movie extends Bookmark {
     @Override
     public String toString() {
         return super.toString() + "Movie{" +
-                "releaseYear='" + releaseYear + '\'' +
+                "id=" + super.getId() +
+                ", title='" + super.getTitle() + '\'' +
+                ", description='" + super.getDescription() + '\'' +
+                ", releaseYear='" + releaseYear + '\'' +
                 ", imdbRating='" + imdbRating + '\'' +
+                ", bookmarkType='" + super.getBookmarkType() + '\'' +
                 ", genre='" + genre + '\'' +
                 "} ";
     }

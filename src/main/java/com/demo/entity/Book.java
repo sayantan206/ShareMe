@@ -1,6 +1,7 @@
 package com.demo.entity;
 
 import com.demo.constants.BookGenre;
+import com.demo.constants.BookmarkType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -11,11 +12,12 @@ import java.util.*;
 @AttributeOverrides({
         @AttributeOverride(name = "id", column = @Column(name = "Book_ID")),
         @AttributeOverride(name = "title", column = @Column(name = "Book_Title")),
-        @AttributeOverride(name = "description", column = @Column(name = "Book_description"))
+        @AttributeOverride(name = "description", column = @Column(name = "Book_description")),
+        @AttributeOverride(name = "bookmarkType", column = @Column(name = "Book_typeId")),
+        @AttributeOverride(name = "imageURL", column = @Column(name = "Book_image_url"))
 })
 public class Book extends Bookmark {
 
-    //todo: change pub year and rating to date and long for @PastOrPresent and @Min,@Max
     @Column(name = "Book_publish_year")
     @Pattern(regexp = "^19[5-9]\\d|20[0-4]\\d|2050$", message = "Invalid input")
     @NotEmpty(message = "This field cannot be empty")
@@ -58,6 +60,7 @@ public class Book extends Bookmark {
         this.publicationYear = publicationYear;
         this.amazonRating = amazonRating;
         this.genre = genre;
+        super.setBookmarkType(BookmarkType.Book);
     }
 
     public String getPublicationYear() {
@@ -147,6 +150,7 @@ public class Book extends Bookmark {
                 ", genre=" + genre +
                 ", publishers=" + publishers +
                 ", authors=" + authors +
+                ", bookmarkType=" + super.getBookmarkType() +
                 ", bookCT='" + bookCT + '\'' +
                 '}';
     }

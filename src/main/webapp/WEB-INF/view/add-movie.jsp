@@ -47,7 +47,7 @@
     <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">Browse</span>
         <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="">My List</a>
+            <a class="mdl-navigation__link" href="${pageContext.request.contextPath}/user_bookmark/list">My List</a>
             <a class="mdl-navigation__link" href="">Archive</a>
             <a class="mdl-navigation__link" href="">Favourites</a>
             <a class="mdl-navigation__link" href="">Tags</a>
@@ -64,6 +64,16 @@
                 <form:form action="save" modelAttribute="movie" method="post">
                     <%--embedded id for update--%>
                     <form:hidden path="id"/>
+                    <form:hidden path="bookmarkType"/>
+
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <form:input path="imageURL" class="mdl-textfield__input" placeholder="Image" type="text"
+                                    id="uploadFile"/>
+                        <div class="mdl-button mdl-button--primary mdl-button--icon mdl-button--file">
+                            <i class="material-icons">attach_file</i><input type="file" id="uploadBtn">
+                        </div>
+                    </div>
+                    <form:errors path="imageURL" cssClass="error"/>
 
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <form:input path="title" class="mdl-textfield__input" type="text" id="sample3"/>

@@ -14,7 +14,7 @@ public class RecentPostController {
     @Autowired
     private RecentPostService recentPostService;
 
-    @GetMapping("/post")
+    @GetMapping("/list")
     public ModelAndView recentPosts() {
         ModelAndView mav = new ModelAndView("list-all");
         mav.addObject("bookmarks", recentPostService.getRecentPosts());

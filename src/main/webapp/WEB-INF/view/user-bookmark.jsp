@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 
 <head>
@@ -16,7 +17,6 @@
         $(window).load(function () {
             // Animate loader off screen
             $(".loader").fadeOut("slow");
-            showElementOnPage("/recent/list", "addBtn", false);
             setNavigationHighlight();
         });
     </script>
@@ -70,6 +70,8 @@
     <div id="content">
         <!-- add cards inside -->
         <c:forEach var="bookmark" items="${bookmarks}">
+            <c:set var="bookmarkType" value="${fn:toLowerCase(bookmark.bookmarkType)}"/>
+
             <div class="card demo-card-square mdl-card mdl-shadow--4dp">
                 <div style="background: url(${bookmark.imageURL}) left top;
                         background-size: 100% 140%;"
@@ -81,32 +83,40 @@
                 </div>
                 <div class="mdl-card__actions mdl-card--border">
                     <div align="right">
-                        <a style="min-width: initial;"
-                           class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                        <a style="min-width: initial;" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                             View Post
                         </a>
-                        <a style="min-width: initial;"
-                           class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                            Save
-                        </a>
+
+                        <!-- Right aligned menu on top of button  -->
+                        <button id="demo-menu-top-right-${bookmark.id}"
+                                class="mdl-button mdl-js-button mdl-button--icon">
+                            <div id="actions-${bookmark.id}"><i class="material-icons">more_vert</i></div>
+                            <div class="mdl-tooltip" for="actions-${bookmark.id}">Actions</div>
+                        </button>
+
+                        <ul class="mdl-menu mdl-menu--top-right mdl-js-menu mdl-js-ripple-effect"
+                            data-mdl-for="demo-menu-top-right-${bookmark.id}">
+                            <li>
+                                <a class="mdl-menu__item"
+                                   href="${pageContext.request.contextPath}/${bookmarkType}/update?bookmarkId=${bookmark.id}">
+                                    Edit
+                                </a>
+                            </li>
+                            <li>
+                                <a class="mdl-menu__item"
+                                   href="${pageContext.request.contextPath}/${bookmarkType}/delete?bookmarkId=${bookmark.id}">
+                                    Delete
+                                </a>
+                            </li>
+                            <li><a disabled class="mdl-menu__item">Share</a></li>
+                            <li><a disabled class="mdl-menu__item">Archive</a></li>
+                            <li><a disabled class="mdl-menu__item">Favourite</a></li>
+                            <li><a disabled class="mdl-menu__item">Tag</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </c:forEach>
-    </div>
-
-    <%--floating button group--%>
-    <div id="floating-button-group">
-        <button style="display: none" id="addBtn"
-                class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fixed-button"
-                onclick="window.location.href='form'; return false;" title="Add Bookmark">
-            <i class="material-icons">add</i>
-        </button>
-        <%--<button id="scrollBtn"
-                class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fixed-button"
-                onclick="scrollToTop(this.id)" title="Go to top">
-            <i class="material-icons">arrow_upward</i>
-        </button>--%>
     </div>
 </div>
 </body>
