@@ -20,7 +20,7 @@ import java.beans.PropertyEditor;
 
 @Controller
 @RequestMapping("/book")
-public class BookController {    //todo: delete dummy controller mappings
+public class BookController {
     @Autowired
     private BookService bookService;
 
@@ -44,27 +44,9 @@ public class BookController {    //todo: delete dummy controller mappings
         return mav;
     }
 
-    @GetMapping("/list2")
-    public ModelAndView listBookmark2() {
-        ModelAndView mav = new ModelAndView("list-bookmarks");
-        mav.addObject("books", bookService.listBookmark());
-
-        return mav;
-    }
-
     @GetMapping("/form")
     public ModelAndView getForm() {
         ModelAndView mav = new ModelAndView("add-book");
-        Book book = new Book();
-        book.setBookmarkType(BookmarkType.Book);
-
-        mav.addObject("book", book);
-        return mav;
-    }
-
-    @GetMapping("/form2")
-    public ModelAndView getForm2() {
-        ModelAndView mav = new ModelAndView("form");
         Book book = new Book();
         book.setBookmarkType(BookmarkType.Book);
 
@@ -85,15 +67,6 @@ public class BookController {    //todo: delete dummy controller mappings
         System.out.println(book);
 
         return "redirect:/user_bookmark/list";
-    }
-
-    @GetMapping("/update2")
-    public ModelAndView showUpdateForm2(@RequestParam("bookmarkId") int Id) {
-        ModelAndView mav = new ModelAndView("form");
-        Book book = bookService.getBookmarkByID(Id);
-        mav.addObject("book", book);
-
-        return mav;
     }
 
     @GetMapping("/update")
