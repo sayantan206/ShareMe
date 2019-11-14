@@ -21,8 +21,8 @@ public class MovieDAOImpl implements MovieDAO {
     public LinkedHashSet<Movie> listBookmark() {
         System.out.println("-----------------------List-----------------------");
         Session session = sessionFactory.getCurrentSession();
-        return new LinkedHashSet<>(session.createQuery("select m from Movie m left join fetch m.directors" +
-                " left join fetch m.actors order by m.movieCT desc", Movie.class).list());
+        return new LinkedHashSet<>(session.createQuery("select m from Movie m" +
+                " order by m.movieCT desc", Movie.class).list());
     }
 
     public void saveBookmark(Movie movie) {

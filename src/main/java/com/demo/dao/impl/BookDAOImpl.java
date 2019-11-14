@@ -22,8 +22,8 @@ public class BookDAOImpl implements BookDAO {
     public LinkedHashSet<Book> listBookmark() {
         System.out.println("-----------------------List-----------------------");
         Session session = sessionFactory.getCurrentSession();
-        return new LinkedHashSet<>(session.createQuery("select b from Book b left join fetch b.publishers" +
-                " left join fetch b.authors order by b.bookCT desc", Book.class).list());
+        return new LinkedHashSet<>(session.createQuery("select b from Book b " +
+                "order by b.bookCT desc", Book.class).list());
     }
 
     public void saveBookmark(Book book) {
