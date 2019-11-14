@@ -5,8 +5,14 @@ import com.demo.constants.BookmarkType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-import java.util.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @AttributeOverrides({
@@ -40,7 +46,7 @@ public class Book extends Bookmark {
     @NotEmpty(message = "This field cannot be empty")
     private Set<Publisher> publishers = new HashSet<>();
 
-    @Column(name = "Book_CT")
+    @Column(name = "Book_CT", updatable = false)
     private String bookCT;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

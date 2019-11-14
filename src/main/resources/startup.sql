@@ -18,10 +18,11 @@ CREATE TABLE IF NOT EXISTS `Book` (
   `Book_description`   TEXT             DEFAULT NULL,
   `Book_publish_year`  VARCHAR(255)     DEFAULT NULL,
   `Book_amazon_rating` FLOAT(2, 1)      DEFAULT NULL,
-  `Book_CT`            TIMESTAMP        DEFAULT CURRENT_TIMESTAMP,
+  `Book_CT`            TIMESTAMP        NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Book_genre`         VARCHAR(255)     DEFAULT NULL,
   `Book_typeId`        INT(1)           DEFAULT 0,
   `Book_image_url`     VARCHAR(255)     DEFAULT NULL,
+  `Book_LU`            TIMESTAMP        ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`Book_ID`)
 )
   ENGINE = InnoDB
@@ -85,9 +86,10 @@ CREATE TABLE IF NOT EXISTS `Movie` (
   `Movie_description`  TEXT             DEFAULT NULL,
   `Movie_release_year` VARCHAR(255)     DEFAULT NULL,
   `Movie_imdb_rating`  FLOAT(2, 1)      DEFAULT NULL,
-  `Movie_CT`           TIMESTAMP        DEFAULT CURRENT_TIMESTAMP,
+  `Movie_CT`           TIMESTAMP        NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Movie_genre`        VARCHAR(255)     DEFAULT NULL,
   `Movie_typeId`       INT(1)           DEFAULT 1,
+  `Movie_LU`            TIMESTAMP        ON UPDATE CURRENT_TIMESTAMP,
 
   PRIMARY KEY (`Movie_ID`)
 )

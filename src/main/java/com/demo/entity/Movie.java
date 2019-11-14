@@ -34,7 +34,7 @@ public class Movie extends Bookmark {
     @DecimalMax(value = "10.0", inclusive = true, message = "Incorrect input")
     private float imdbRating;
 
-    @Column(name = "Movie_CT")
+    @Column(name = "Movie_CT", updatable = false)
     private String movieCT;
 
     @Column(name = "Movie_genre")

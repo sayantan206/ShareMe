@@ -22,7 +22,7 @@ public class MovieDAOImpl implements MovieDAO {
         System.out.println("-----------------------List-----------------------");
         Session session = sessionFactory.getCurrentSession();
         return new LinkedHashSet<>(session.createQuery("select m from Movie m left join fetch m.directors" +
-                " left join fetch m.actors order by m.movieCT", Movie.class).list());
+                " left join fetch m.actors order by m.movieCT desc", Movie.class).list());
     }
 
     public void saveBookmark(Movie movie) {
