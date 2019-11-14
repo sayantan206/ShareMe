@@ -16,7 +16,6 @@ public class MovieDAOImpl implements MovieDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-    //todo: query will join with and actor
     @Override
     public LinkedHashSet<Movie> listBookmark() {
         System.out.println("-----------------------List-----------------------");
@@ -38,7 +37,6 @@ public class MovieDAOImpl implements MovieDAO {
         session.merge(movie);
     }
 
-    //todo: query will join with and actor
     public Movie getBookmarkByID(long id) {
         System.out.println("-----------------------Get movie by id-----------------------");
         Session session = sessionFactory.getCurrentSession();

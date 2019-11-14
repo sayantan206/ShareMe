@@ -44,25 +44,6 @@ public class MovieController {
         return mav;
     }
 
-    //todo: delete dummy
-    @GetMapping("/list2")
-    public ModelAndView listBookmark2() {
-        ModelAndView mav = new ModelAndView("list-movies");
-        mav.addObject("movies", movieService.listBookmark());
-
-        return mav;
-    }
-
-    @GetMapping("/form2")
-    public ModelAndView getForm2() {
-        ModelAndView mav = new ModelAndView("form-movie");
-        Movie movie = new Movie();
-        movie.setBookmarkType(BookmarkType.Movie);
-
-        mav.addObject("movie", movie);
-        return mav;
-    }
-
     @GetMapping("/form")
     public ModelAndView getForm() {
         ModelAndView mav = new ModelAndView("add-movie");
@@ -87,15 +68,6 @@ public class MovieController {
         System.out.println(movie);
 
         return "redirect:/user_bookmark/list";
-    }
-
-    @GetMapping("/update2")
-    public ModelAndView showUpdateForm2(@RequestParam("bookmarkId") int Id) {
-        ModelAndView mav = new ModelAndView("form-movie");
-        Movie movie = movieService.getBookmarkByID(Id);
-        mav.addObject("movie", movie);
-
-        return mav;
     }
 
     @GetMapping("/update")
