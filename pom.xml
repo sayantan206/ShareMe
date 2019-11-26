@@ -11,6 +11,7 @@
 
 
     <dependencies>
+        <!--spring code dependencies-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
@@ -22,6 +23,23 @@
             <version>5.1.5.RELEASE</version>
         </dependency>
 
+
+        <!--servlet dependencies-->
+        <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.servlet.jsp/javax.servlet.jsp-api -->
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>javax.servlet.jsp-api</artifactId>
+            <version>2.3.1</version>
+            <scope>provided</scope>
+        </dependency>
 
         <!--Hibernate dependencies-->
         <dependency>
@@ -65,4 +83,19 @@
         </dependency>
 
     </dependencies>
+
+    <build>
+        <finalName>shareMe-demo</finalName>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <!-- Add Maven coordinates (GAV) for: maven-war-plugin -->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
