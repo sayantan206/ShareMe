@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.sql.DataSource;
@@ -27,7 +28,7 @@ import java.util.logging.Logger;
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.demo")
 @PropertySource("classpath:persistence-mysql.properties")
-public class AppConfig extends WebMvcConfigurationSupport {
+public class AppConfig implements WebMvcConfigurer {
     //set up variable to hold the properties
     @Autowired
     private Environment env;
@@ -106,8 +107,14 @@ public class AppConfig extends WebMvcConfigurationSupport {
         return txManager;
     }
 
-    @Override
+    /*@Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("resources/");
+        registry.addResourceHandler("resources/").addResourceLocations("resources/**");
+    }*/
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations("resources/");
     }
 }
