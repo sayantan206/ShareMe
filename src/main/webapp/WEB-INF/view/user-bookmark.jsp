@@ -13,6 +13,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
 
+    <title>ShareMe - My List</title>
+
     <script>
         $(window).load(function () {
             // Animate loader off screen
@@ -31,7 +33,9 @@
     <header class="mdl-layout__header mdl-layout__header--scroll">
         <div class="mdl-layout__header-row">
             <!-- Title -->
-            <span class="mdl-layout-title">ShareMe</span>
+            <span class="mdl-layout-title title" onclick="window.location.href='/recent/list'; return false;">
+                ShareMe
+            </span>
             <!-- Add spacer, to align navigation to the right -->
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation -->

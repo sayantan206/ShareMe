@@ -1,7 +1,7 @@
 package com.demo.entity;
 
 import com.demo.constants.BookmarkType;
-import com.demo.utility.ImageFileValidator;
+import com.demo.validation.ImageFileValidator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
