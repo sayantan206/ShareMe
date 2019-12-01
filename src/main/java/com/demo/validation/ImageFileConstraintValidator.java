@@ -1,4 +1,4 @@
-package com.demo.utility;
+package com.demo.validation;
 
 import org.springframework.util.StringUtils;
 

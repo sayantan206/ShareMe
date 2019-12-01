@@ -20,6 +20,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
 
+    <title>ShareMe - Add Movie</title>
+
     <script>
         $(window).load(function () {
             // Animate loader off screen
@@ -39,9 +41,47 @@
 
 <div class="mdl-layout mdl-js-layout">
     <header class="mdl-layout__header mdl-layout__header--scroll">
-        <div class="mdl-layout__header-row">
+        <div class="mdl-layout__header-row header-row">
             <!-- Title -->
-            <span class="mdl-layout-title">Share Me</span>
+            <span class="mdl-layout-title hover-pointer" onclick="window.location.href='/recent/list'; return false;">
+                ShareMe
+            </span>
+            <!-- Add spacer, to align navigation to the right -->
+            <div class="mdl-layout-spacer"></div>
+            <!-- Navigation -->
+            <nav id="nav-header" class="mdl-navigation">
+                <a class="mdl-navigation__link" href="${pageContext.request.contextPath}/recent/list">Browse</a>
+                <a class="mdl-navigation__link" href="${pageContext.request.contextPath}/book/list">Book</a>
+                <a class="mdl-navigation__link" href="${pageContext.request.contextPath}/movie/list">Movie</a>
+                <a class="mdl-navigation__link" href="${pageContext.request.contextPath}/#">Web Link</a>
+                <a class="mdl-navigation__link" href="${pageContext.request.contextPath}/#">Web Series</a>
+                <div class="mdl-layout-spacer"></div>
+
+                <%--search field--%>
+                <div style="padding-right: 15px;" class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                  mdl-textfield--floating-label mdl-textfield--align-right">
+                    <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
+                        <i class="material-icons">search</i>
+                    </label>
+                    <div class="mdl-textfield__expandable-holder">
+                        <input class="mdl-textfield__input" name="sample" id="fixed-header-drawer-exp">
+                    </div>
+                </div>
+
+                <%--user account menu--%>
+                <i id="demo-menu-lower-right"
+                   class="material-icons md-36 hover-pointer">account_circle</i>
+
+                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                    for="demo-menu-lower-right">
+                    <li disabled class="mdl-menu__item">View Profile</li>
+                    <li disabled class="mdl-menu__item">Settings</li>
+                    <form:form action="${pageContext.request.contextPath}/logout"
+                               method="POST" class="mdl-menu__item">
+                        <input style="padding: 0; width: 100%" class="mdl-menu__item" type="submit" value="Logout"/>
+                    </form:form>
+                </ul>
+            </nav>
         </div>
     </header>
     <div class="mdl-layout__drawer">

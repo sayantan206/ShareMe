@@ -1,17 +1,19 @@
 package com.demo.dao.impl;
 
 import com.demo.dao.MovieDAO;
-import com.demo.entity.*;
+import com.demo.entity.Actor;
+import com.demo.entity.Director;
+import com.demo.entity.Movie;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.LinkedHashSet;
 import java.util.List;
 
-@Component
+@Repository
 public class MovieDAOImpl implements MovieDAO {
     @Autowired
     private SessionFactory sessionFactory;

@@ -8,12 +8,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.LinkedHashSet;
 import java.util.List;
 
-@Component
+@Repository
 public class BookDAOImpl implements BookDAO {
 
     @Autowired
@@ -73,7 +73,7 @@ public class BookDAOImpl implements BookDAO {
         query.setParameter("name", name);
 
         List<Publisher> resultList = query.getResultList();
-        if(resultList.isEmpty())
+        if (resultList.isEmpty())
             return new Publisher(name);
         return resultList.get(0);
     }
@@ -88,7 +88,7 @@ public class BookDAOImpl implements BookDAO {
         query.setParameter("name", name);
 
         List<Author> resultList = query.getResultList();
-        if(resultList.isEmpty())
+        if (resultList.isEmpty())
             return new Author(name);
         return resultList.get(0);
     }

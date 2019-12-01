@@ -57,6 +57,10 @@
     padding-bottom: 30px;
 }
 
+.header-row{
+    padding-right:20px;
+}
+
 .error{
     color: red;
     line-height: 1px;
@@ -97,6 +101,10 @@
 }
 .mdl-button--file {
     right: 0;
+}
+
+.hover-pointer{
+    cursor: pointer;
 }
 
 /*modal*/
@@ -149,3 +157,5 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+.material-icons.md-36 { font-size: 36px; }
