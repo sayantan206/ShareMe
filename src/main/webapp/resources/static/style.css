@@ -57,6 +57,10 @@
     padding-bottom: 30px;
 }
 
+.header-row{
+    padding-right:20px;
+}
+
 .error{
     color: red;
     line-height: 1px;
@@ -99,7 +103,7 @@
     right: 0;
 }
 
-.title{
+.hover-pointer{
     cursor: pointer;
 }
 
@@ -153,3 +157,5 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+.material-icons.md-36 { font-size: 36px; }

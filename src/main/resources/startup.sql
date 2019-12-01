@@ -157,7 +157,49 @@ CREATE TABLE `Movie_director` (
 
 
 
+# user details goes here
+CREATE TABLE `User` (
+  `User_ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `User_name` VARCHAR(50) NOT NULL ,
+  `User_email` VARCHAR(30) NOT NULL UNIQUE,
+  `User_password` VARCHAR(68) NOT NULL ,
+  `enabled` TINYINT(1) NOT NULL ,
 
+  PRIMARY KEY (`User_ID`)
+  )ENGINE = InnoDB
+    AUTO_INCREMENT = 1
+    DEFAULT CHARSET = latin1;
+
+
+  CREATE TABLE `Role` (
+    `Role_ID` INT(11) NOT NULL AUTO_INCREMENT,
+    `Role_name` VARCHAR(20) NOT NULL,
+
+    PRIMARY KEY (`Role_ID`)
+  )ENGINE = InnoDB
+    AUTO_INCREMENT = 1
+    DEFAULT CHARSET = latin1;
+
+
+  CREATE TABLE `User_role` (
+    `User_role_user_ID` INT(11) NOT NULL,
+    `User_role_role_ID` INT(11) NOT NULL ,
+
+    PRIMARY KEY (`User_role_user_ID`,`User_role_role_ID`),
+    KEY `FK_user_IDX` (`User_role_user_ID`),
+    CONSTRAINT `FK_user` FOREIGN KEY (`User_role_user_ID`)
+      REFERENCES `User` (`User_ID`)
+    on UPDATE no ACTION
+    on DELETE NO ACTION ,
+
+    KEY `FK_role_IDX` (`User_role_role_ID`),
+    CONSTRAINT `FK_role` FOREIGN KEY (`User_role_role_ID`)
+    REFERENCES `Role` (`Role_ID`)
+      on UPDATE no ACTION
+      on DELETE NO ACTION
+  )ENGINE = InnoDB
+    AUTO_INCREMENT = 1
+    DEFAULT CHARSET = latin1;
 
 
 
