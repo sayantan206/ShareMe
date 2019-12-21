@@ -37,7 +37,6 @@ public class Book extends Bookmark {
     @Column(name = "Book_genre")
     private String genre;
 
-    //todo: change cascade type to non delete
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "Book_publisher",
             joinColumns = @JoinColumn(name = "Book_publisher_book_id"),

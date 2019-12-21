@@ -18,7 +18,7 @@ public class UserDaoImpl implements UserDao {
     public User findByUserName(String userEmail) {
         Session session = sessionFactory.getCurrentSession();
 
-        List<User> users = session.createQuery("from User where email=:userEmail", User.class)
+        List<User> users = session.createQuery("from User u join fetch u.roles where u.email=:userEmail", User.class)
                 .setParameter("userEmail", userEmail)
                 .list();
 

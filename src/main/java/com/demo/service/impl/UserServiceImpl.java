@@ -5,6 +5,7 @@ import com.demo.dao.UserDao;
 import com.demo.entity.NewUser;
 import com.demo.entity.Role;
 import com.demo.entity.User;
+import com.demo.service.CustomUserDetailService;
 import com.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,6 +15,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -29,6 +32,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private CustomUserDetailService userDetailService;
 
     @Override
     @Transactional
@@ -58,11 +64,18 @@ public class UserServiceImpl implements UserService {
         if (user == null)
             throw new UsernameNotFoundException("Invalid username or password.");
 
-        return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(),
-                mapRolesToAuthorities(user.getRoles()));
+        userDetailService.setUser(user);
+        userDetailService.setAuthorities(user.getRoles());
+
+        return userDetailService;
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+    }
+
+    public User getCurrentUser(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        return (User) session.getAttribute("user");
     }
 }
