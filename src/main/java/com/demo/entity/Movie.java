@@ -56,6 +56,10 @@ public class Movie extends Bookmark {
     @NotEmpty(message = "This field cannot be empty")
     private Set<Actor> actors = new HashSet<>();
 
+
+    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<UserMovie> userMovies = new HashSet<>();
+
     public Movie() {
         //constructor called by spring container
     }
@@ -141,6 +145,18 @@ public class Movie extends Bookmark {
     public void removeActor(Actor actor) {
         this.getActors().remove(actor);
         actor.getMovies().remove(this);
+    }
+
+    public Set<UserMovie> getUserMovies() {
+        return userMovies;
+    }
+
+    public void setUserMovies(Set<UserMovie> userMovies) {
+        this.userMovies = userMovies;
+    }
+
+    public void setUserMovie(UserMovie userMovie){
+        this.getUserMovies().add(userMovie);
     }
 
     @Override

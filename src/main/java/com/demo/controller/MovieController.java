@@ -4,7 +4,10 @@ import com.demo.constants.BookmarkType;
 import com.demo.entity.Actor;
 import com.demo.entity.Director;
 import com.demo.entity.Movie;
+import com.demo.entity.UserMovie;
 import com.demo.service.MovieService;
+import com.demo.service.UserMovieService;
+import com.demo.service.UserService;
 import com.demo.validation.CustomActorEditor;
 import com.demo.validation.CustomDirectorEditor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.beans.PropertyEditor;
 
@@ -23,6 +27,12 @@ import java.beans.PropertyEditor;
 public class MovieController {
     @Autowired
     private MovieService movieService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private UserMovieService userMovieService;
 
     @InitBinder
     public void preProcess(WebDataBinder binder) {
@@ -83,5 +93,17 @@ public class MovieController {
     public String deleteBookmark(@RequestParam("bookmarkId") int Id) {
         movieService.deleteBookmark(Id);
         return "redirect:/user_bookmark/list";
+    }
+
+    @GetMapping("/save-bookmark")
+    public String saveUserBookmark(@RequestParam("bookmarkID") long ID, HttpServletRequest request) {
+        UserMovie userMovie = new UserMovie();
+        userMovie.setMovie(movieService.getBookmarkByID(ID));
+        userMovie.setUser(userService.getCurrentUser(request));
+        userMovie.setSaved(Boolean.TRUE);
+
+        userMovieService.saveUserBookmark(userMovie);
+
+        return "redirect:/user_bookmark/saved/list";
     }
 }

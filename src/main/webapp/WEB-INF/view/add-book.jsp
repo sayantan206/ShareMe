@@ -87,9 +87,9 @@
         <span class="mdl-layout-title">Browse</span>
         <nav class="mdl-navigation">
             <a class="mdl-navigation__link" href="${pageContext.request.contextPath}/user_bookmark/list">My List</a>
-            <a class="mdl-navigation__link" href="">Archive</a>
+            <a class="mdl-navigation__link" href="${pageContext.request.contextPath}/user_bookmark/saved/list">Saved</a>
+            <a class="mdl-navigation__link" href="">Archived</a>
             <a class="mdl-navigation__link" href="">Favourites</a>
-            <a class="mdl-navigation__link" href="">Tags</a>
         </nav>
     </div>
     <div id="add-form">
