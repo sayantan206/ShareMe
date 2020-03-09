@@ -1,6 +1,7 @@
 package com.demo.service.impl;
 
 import com.demo.dao.BookDAO;
+import com.demo.dao.UserBookDAO;
 import com.demo.entity.Author;
 import com.demo.entity.Book;
 import com.demo.entity.Publisher;
@@ -15,6 +16,9 @@ import java.util.LinkedHashSet;
 public class BookServiceImpl implements BookService {
     @Autowired
     private BookDAO bookDAO;
+
+    @Autowired
+    private UserBookDAO userBookDAO;
 
     @Transactional
     public LinkedHashSet<Book> listBookmark() {
@@ -37,6 +41,9 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     public void deleteBookmark(long id) {
+        //remove all the user-book entries of the specified book
+        userBookDAO.deleteUserBookmark(id);
+        //delete the book entry
         bookDAO.deleteBookmark(id);
     }
 

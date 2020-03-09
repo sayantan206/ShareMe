@@ -201,27 +201,46 @@ CREATE TABLE `User` (
     AUTO_INCREMENT = 1
     DEFAULT CHARSET = latin1;
 
+create table user_book(
+  user_book_ID int(11) not NULL AUTO_INCREMENT,
+  user_book_user_ID INT(11) NOT NULL ,
+  user_book_book_ID int(11) NOT NULL ,
+  user_book_is_saved BOOLEAN NOT NULL ,
 
+  PRIMARY KEY (`user_book_ID`),
+  KEY `FK_user_IDX` (`user_book_user_ID`),
+  CONSTRAINT `FK_user2` FOREIGN KEY (`user_book_user_ID`)
+  REFERENCES `User` (`User_ID`)
+    on UPDATE no ACTION
+    on DELETE NO ACTION,
 
+  KEY `FK_book_idx` (`user_book_book_ID`),
+  CONSTRAINT `FK_book2` FOREIGN KEY (`user_book_book_ID`)
+  REFERENCES `Book` (`Book_ID`)
+    on UPDATE no ACTION
+    on DELETE NO ACTION
+)ENGINE = InnoDB
+  AUTO_INCREMENT = 1
+  DEFAULT CHARSET = latin1;
 
+create table user_movie(
+  user_movie_ID int(11) not NULL AUTO_INCREMENT,
+  user_movie_user_ID INT(11) NOT NULL ,
+  user_movie_movie_ID int(11) NOT NULL ,
+  user_movie_is_saved BOOLEAN NOT NULL ,
 
+  PRIMARY KEY (`user_movie_ID`),
+  KEY `FK_user_IDX2` (`user_movie_user_ID`),
+  CONSTRAINT `FK_movie_user` FOREIGN KEY (`user_movie_user_ID`)
+  REFERENCES `User` (`User_ID`)
+    on UPDATE no ACTION
+    on DELETE NO ACTION,
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  KEY `FK_book_idx2` (`user_movie_movie_ID`),
+  CONSTRAINT `FK_movie_movie` FOREIGN KEY (`user_movie_movie_ID`)
+  REFERENCES `Movie` (`Movie_ID`)
+    on UPDATE no ACTION
+    on DELETE NO ACTION
+)ENGINE = InnoDB
+  AUTO_INCREMENT = 1
+  DEFAULT CHARSET = latin1;

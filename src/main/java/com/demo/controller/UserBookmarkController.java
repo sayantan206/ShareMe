@@ -1,11 +1,14 @@
 package com.demo.controller;
 
 import com.demo.service.UserPostService;
+import com.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/user_bookmark")
@@ -13,10 +16,21 @@ public class UserBookmarkController {
     @Autowired
     private UserPostService userPostService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/list")
-    public ModelAndView getUserPosts() {
+    public ModelAndView getUserPosts(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("user-bookmark");
-        mav.addObject("bookmarks", userPostService.getUserPosts());
+        mav.addObject("bookmarks", userPostService.getUserPosts(userService.getCurrentUser(request)));
+
+        return mav;
+    }
+
+    @GetMapping("/saved/list")
+    public ModelAndView getUserSavedPosts(HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("user-saved-bookmark");
+        mav.addObject("bookmarks", userPostService.getUserSavedPosts(userService.getCurrentUser(request)));
 
         return mav;
     }

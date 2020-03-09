@@ -43,7 +43,7 @@ public class BookDAOImpl implements BookDAO {
         System.out.println("-----------------------Get book by id-----------------------");
         Session session = sessionFactory.getCurrentSession();
         LinkedHashSet<Book> books = new LinkedHashSet<>(session.createQuery("select b from Book b left join fetch b.publishers" +
-                " left join fetch b.authors where b.id=:id", Book.class).setParameter("id", id).list());
+                " left join fetch b.authors join fetch b.userBooks where b.id=:id", Book.class).setParameter("id", id).list());
 
         return books.iterator().hasNext() ? books.iterator().next() : null;
     }

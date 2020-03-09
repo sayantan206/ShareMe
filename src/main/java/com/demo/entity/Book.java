@@ -37,7 +37,6 @@ public class Book extends Bookmark {
     @Column(name = "Book_genre")
     private String genre;
 
-    //todo: change cascade type to non delete
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "Book_publisher",
             joinColumns = @JoinColumn(name = "Book_publisher_book_id"),
@@ -56,6 +55,9 @@ public class Book extends Bookmark {
     )
     @NotEmpty(message = "This field cannot be empty")
     private Set<Author> authors = new HashSet<>();
+
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<UserBook> userBooks = new HashSet<>();
 
     public Book() {
         //method called by spring container
@@ -143,6 +145,18 @@ public class Book extends Bookmark {
     public void removeAuthor(Author author) {
         this.authors.remove(author);
         author.getBooks().remove(this);
+    }
+
+    public Set<UserBook> getUserBooks() {
+        return userBooks;
+    }
+
+    public void setUserBooks(Set<UserBook> userBooks) {
+        this.userBooks = userBooks;
+    }
+
+    public void setUserBook(UserBook userBook){
+        this.getUserBooks().add(userBook);
     }
 
     @Override

@@ -30,6 +30,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "User_role_role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<UserBook> userBooks = new HashSet<>();
+
     public User() {
     }
 
@@ -83,6 +86,14 @@ public class User {
 
     public void addRole(Role role) {
         this.roles.add(role);
+    }
+
+    public Set<UserBook> getUserBooks() {
+        return userBooks;
+    }
+
+    public void setUserBooks(Set<UserBook> userBooks) {
+        this.userBooks = userBooks;
     }
 
     @Override

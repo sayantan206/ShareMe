@@ -1,8 +1,7 @@
 package com.demo.config;
 
 import com.demo.entity.User;
-import com.demo.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.demo.service.CustomUserDetailService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -16,16 +15,10 @@ import java.io.IOException;
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    @Autowired
-    private UserService userService;
-
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
-        String userName = authentication.getName();
-        System.out.println("userName=" + userName);
-
-        User theUser = userService.findByUserName(userName);
+        User theUser = ((CustomUserDetailService) authentication.getPrincipal()).getUser();
 
         // now place in the session
         HttpSession session = request.getSession();
